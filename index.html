@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mostafa &amp; Mariam Engagement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* VOICE: classic, formal, timeless; engraved stationery.
+   IDEA: an ivory card with a gold foil double frame and fine gold flourishes.
+   PICTURE: the names in gold script inside a framed panel, gold line flourishes as the only ornament.
+   COLOUR and TYPE: ivory, champagne gold, deep gold ink, warm brown ink; Pinyon Script only for the names and section titles, Cormorant Garamond for everything else.
+   LAYOUT: a monogram cover, then one centred column: names framed by florals, the details, a countdown, the reply card, a signed close. */
+:root{color-scheme:light;--bg:#FBF7EF;--blush:#F4E4DE;--rose:#D9AE9F;--sage:#AEB8A3;--gold:#B8956A;--goldink:#86683F;--ink:#4B3F38;--soft:#7B6E66;--line:rgba(184,149,106,.5);--card:#FFFDFB;--paper:#F4EDE2;--petal:#FFFDF9;--vein:#E4D7C2}
+:root[data-theme=dark],:root[data-theme=light]{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:400 19px/1.6 'Cormorant Garamond',Georgia,serif;overflow-x:clip}
+body.locked{overflow:hidden;height:100svh}
+.wash{background:var(--bg)}
+.wrap{position:relative;max-width:500px;width:calc(100% - 24px);margin:72px auto 24px;padding:0 max(5vw,20px);border:1.5px solid var(--gold)}
+.wrap::before{content:"";position:absolute;inset:7px;border:1px solid var(--line);pointer-events:none}
+.script{font-family:'Pinyon Script',cursive;font-weight:400;color:var(--goldink)}
+h2.script{font-size:clamp(46px,12vw,58px);line-height:1.1;margin:0;text-align:center}
+section>h2.script::after{content:"";display:block;width:150px;height:16px;margin:6px auto 4px;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 150 16%27%3E%3Cpath d=%27M0 8H58M92 8H150%27 stroke=%27%23B8956A%27 stroke-width=%27.8%27/%3E%3Cpath d=%27M75 2C70 8 70 8 75 14C80 8 80 8 75 2Z%27 fill=%27none%27 stroke=%27%23B8956A%27 stroke-width=%27.8%27/%3E%3C/svg%3E") center/contain no-repeat}
+section{padding:64px 0 0;text-align:center}
+.orn{display:block;width:150px;height:16px;margin:14px auto 0}
+.muted{color:var(--soft)}
+a{color:var(--goldink)}
+:focus-visible{outline:1.5px solid var(--goldink);outline-offset:3px}
+
+/* Envelope */
+.env{position:fixed;inset:0;z-index:10;pointer-events:auto}
+.half{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--paper);transition:transform 1.1s cubic-bezier(.7,0,.25,1)}
+.half.top{top:0}.half.bot{bottom:0}
+.half svg{position:absolute;left:0;width:100%;height:100dvh}
+.half.top svg{top:0}.half.bot svg{bottom:0}
+.env.open .top{transform:translateY(-101%)}
+.env.open .bot{transform:translateY(101%)}
+.env.gone{display:none}
+.seal{position:absolute;left:50%;top:50%;width:132px;height:132px;transform:translate(-50%,-50%);border:0;padding:0;background:none;cursor:pointer;border-radius:50%;transition:transform .5s ease,opacity .5s ease;z-index:2}
+.seal svg{width:100%;height:100%;filter:drop-shadow(0 6px 8px rgba(110,80,30,.35))}
+.env.open .seal{transform:translate(-50%,-50%) scale(.6);opacity:0}
+.tap{position:absolute;left:0;right:0;top:calc(50% + 84px);text-align:center;color:var(--soft);font-style:italic;font-size:18px;z-index:2;transition:opacity .4s}
+.env.open .tap{opacity:0}
+.seal:focus-visible{outline:2px solid var(--goldink);outline-offset:6px}
+
+.env .tap{font-family:'Cormorant Garamond',serif}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.cardw{display:flex;flex-direction:column;gap:6px}
+.dcard{position:relative;aspect-ratio:1/1.05;background:var(--card);border:1px solid var(--gold);border-radius:2px;display:grid;place-items:center;box-shadow:0 4px 14px rgba(138,106,47,.12);overflow:hidden;touch-action:none}
+.dcard b{font-weight:500;font-size:clamp(22px,6.5vw,32px);color:var(--ink)}
+.dcard canvas{position:absolute;inset:0;width:100%;height:100%;transition:opacity .6s;cursor:grab}
+.dcard canvas.clear{opacity:0;pointer-events:none}
+.cardw small{font-size:15px;color:var(--soft)}
+.reveal{margin-top:10px;background:none;border:0;color:var(--goldink);font:italic 17px 'Cormorant Garamond',serif;text-decoration:underline;cursor:pointer;min-height:44px}
+
+.hint{color:var(--soft);font-style:italic;font-size:17px;margin:4px 0 0}
+.whenline{margin:18px 0 0;font-size:20px}
+.lang{position:fixed;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:20;min-height:44px;min-width:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--gold);background:rgba(255,253,251,.92);color:var(--goldink);font:500 17px 'Cormorant Garamond','Amiri',serif;cursor:pointer}
+.dear{position:absolute;left:0;right:0;top:calc(50% - 118px);text-align:center;margin:0;z-index:2;font:400 30px/1.2 'Pinyon Script',cursive;color:var(--goldink);transition:opacity .4s;padding:0 20px}
+.env.open .dear{opacity:0}
+.petals{position:fixed;inset:0;z-index:6;pointer-events:none;width:100%;height:100%}
+button.pill{cursor:pointer;font-family:inherit}
+#calOpts{margin-top:10px}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:14px}.pills .pill{margin-top:0}
+html[lang=ar] body{font-family:'Amiri',serif;font-size:18px}
+html[lang=ar] .script,html[lang=ar] .hero h1,html[lang=ar] .dear{font-family:'Aref Ruqaa',serif;font-weight:400}
+html[lang=ar] h2.script{font-size:clamp(38px,10vw,46px);line-height:1.4}
+html[lang=ar] .hero h1{font-size:clamp(52px,15vw,74px);line-height:1.3}
+html[lang=ar] .hero h1 span{font-family:'Amiri',serif;font-style:normal;font-size:.4em;line-height:1.4}
+html[lang=ar] footer .script{font-size:36px;line-height:1.5}
+html[lang=ar] .dear{font-size:26px}
+html[lang=ar] input,html[lang=ar] textarea,html[lang=ar] button,html[lang=ar] .send{font-family:'Amiri',serif}
+html[lang=ar] .count div+div{border-left:0;border-right:1px solid var(--line)}
+html[lang=ar] .hint,html[lang=ar] .muted,html[lang=ar] .by,html[lang=ar] .hero .inv,html[lang=ar] .opt,html[lang=ar] footer p,html[lang=ar] .env .tap{font-style:normal}
+/* Hero */
+.hero{position:relative;padding:64px 0 30px;text-align:center}
+.hero .fl{display:block;width:min(82%,250px);margin:0 auto 18px}
+.hero .fl.b{transform:rotate(180deg);margin:26px auto 0}
+.hero .fam{margin:-6px 0 0;font-size:18px;color:var(--soft)}
+.hero h1{margin:14px 0 0;font:400 clamp(64px,19vw,96px)/1 'Pinyon Script',cursive;color:var(--goldink)}
+.hero h1 span{display:block;font:italic 300 .32em/1.7 'Cormorant Garamond',serif;color:var(--soft)}
+.hero .inv{margin:18px auto 0;font-style:italic;font-size:21px;line-height:1.45;max-width:20em}
+
+/* Details */
+.when{margin:22px 0 0;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center}
+.when span{font-size:17px;color:var(--soft)}
+.when strong{font-weight:500;font-size:clamp(28px,8vw,34px);line-height:1.1;padding:4px 18px;border-inline:1px solid var(--line)}
+.when strong small{display:block;font-size:.5em;font-weight:400;letter-spacing:.04em}
+.venue{margin:30px 0 0}
+.venue b{display:block;font-weight:500;font-size:26px}
+.venue p{margin:0;color:var(--soft)}
+.pill{display:inline-flex;align-items:center;justify-content:center;margin-top:14px;min-height:46px;padding:8px 26px;border:1px solid var(--gold);border-radius:999px;text-decoration:none;font-weight:500;font-size:17px;color:var(--goldink);background:var(--card)}
+.count{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:18px}
+.count b{display:block;font-weight:300;font-size:clamp(38px,11vw,48px);line-height:1.05;color:var(--goldink);font-variant-numeric:tabular-nums}
+.count span{font-size:16px;color:var(--soft)}
+.count div+div{border-left:1px solid var(--line)}
+
+/* RSVP */
+.card{margin-top:22px;background:var(--card);border:1px solid var(--gold);border-radius:0;padding:clamp(22px,6vw,34px);text-align:start;position:relative;box-shadow:0 10px 30px rgba(134,104,63,.08)}
+.card::before{content:"";position:absolute;inset:6px;border:1px solid rgba(184,149,106,.22);border-radius:2px;pointer-events:none}
+.field{margin-top:22px;position:relative}.field:first-child{margin-top:0}
+label,.lab{display:block;font-weight:500;font-size:18px;margin-bottom:6px}
+.opt{font-weight:400;font-style:italic;color:var(--soft)}
+input[type=text],textarea{width:100%;font:400 18px/1.4 'Cormorant Garamond',serif;color:var(--ink);background:#FBF8F4;border:1px solid #E5D9CB;border-radius:4px;padding:11px 14px;min-height:50px}
+textarea{resize:vertical;min-height:80px}
+input::placeholder,textarea::placeholder{color:#A39589;font-style:italic}
+input:focus,textarea:focus{outline:0;border-color:var(--gold);background:#fff}
+.choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice button{font:500 18px/1.25 'Cormorant Garamond',serif;color:var(--ink);background:#FBF8F4;border:1px solid #E5D9CB;border-radius:4px;padding:10px 8px;min-height:54px;cursor:pointer}
+.choice button[aria-pressed=true]{background:var(--goldink);border-color:var(--goldink);color:#FFFDFB}
+.step{display:flex;align-items:center;gap:14px}
+.step button{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:var(--card);color:var(--goldink);font:400 26px/1 'Cormorant Garamond',serif;cursor:pointer}
+.step button:disabled{opacity:.35;cursor:default}
+.step output{font:400 36px/1 'Cormorant Garamond',serif;min-width:1.6ch;text-align:center;color:var(--goldink)}
+.step .opt{flex:1}
+.err{color:#9B3B2E;font-size:16px;margin:6px 0 0}
+.err:empty{display:none}
+.send{display:block;width:100%;margin-top:30px;font:500 19px 'Cormorant Garamond',serif;letter-spacing:.03em;color:#FFFDFB;background:var(--goldink);border:0;border-radius:999px;padding:14px;min-height:54px;cursor:pointer;text-align:center;text-decoration:none}
+.send:hover{background:#6F5532}
+.by{text-align:center;font-style:italic;color:var(--soft);margin:14px 0 0}
+.done{text-align:center}
+.done p{color:var(--soft);margin:10px 0 0}
+.done pre{white-space:pre-wrap;text-align:start;background:#FBF8F4;border:1px solid #EEE3D6;border-radius:4px;padding:14px;font:400 17px/1.6 'Cormorant Garamond',serif;color:var(--ink);margin:16px 0 0}
+.ghost{display:inline-block;margin-top:10px;min-height:44px;background:none;border:0;color:var(--soft);font:italic 17px 'Cormorant Garamond',serif;text-decoration:underline;cursor:pointer}
+.thanks{text-align:center;padding-top:18px}
+.thanks .tfl{display:block;width:min(70%,220px);margin:10px auto 6px}
+.thanks h2.script{font-size:clamp(42px,11vw,52px);margin-top:4px}
+.thxMsg{margin:6px 0 0;font-size:21px;font-style:italic}
+.thxNote{margin:14px 0 0;font-size:16px;color:var(--soft)}
+html[lang=ar] .thxMsg{font-style:normal}
+footer{text-align:center;padding:56px 0 64px}
+footer .fl{display:block;width:min(60%,220px);margin:0 auto 14px}
+footer p{margin:0;font-style:italic;color:var(--soft)}
+footer .script{font-size:44px;line-height:1.2}
+.music{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:rgba(255,253,251,.92);color:var(--goldink);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px rgba(134,104,63,.15)}
+.music svg{width:15px;height:15px}
+[hidden]{display:none!important}
+main{opacity:0;transition:opacity .5s ease}
+main.on{opacity:1}
+@media (prefers-reduced-motion:reduce){main{transition:none}}
+</style>
+</head>
+<body class="locked">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="petal" cx="50%" cy="30%" r="75%"><stop offset="0" stop-color="#FCF2EE"/><stop offset=".55" stop-color="#EECFC5"/><stop offset="1" stop-color="#D9AA9B"/></radialGradient>
+    <radialGradient id="petal2" cx="50%" cy="35%" r="75%"><stop offset="0" stop-color="#FFFAF6"/><stop offset=".6" stop-color="#F4E3DA"/><stop offset="1" stop-color="#E3C6B8"/></radialGradient>
+    <radialGradient id="heart" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#E8BBAE"/><stop offset="1" stop-color="#C98F80"/></radialGradient>
+    <linearGradient id="leafG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8D0BF"/><stop offset="1" stop-color="#9AA78E"/></linearGradient>
+    <symbol id="rose" viewBox="-30 -30 60 60" overflow="visible">
+      <g stroke="#DDB6A8" stroke-width=".5">
+        <g fill="url(#petal)">
+          <ellipse cx="0" cy="-13" rx="15" ry="12"/><ellipse cx="0" cy="-13" rx="15" ry="12" transform="rotate(60)"/><ellipse cx="0" cy="-13" rx="15" ry="12" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-13" rx="15" ry="12" transform="rotate(180)"/><ellipse cx="0" cy="-13" rx="15" ry="12" transform="rotate(240)"/><ellipse cx="0" cy="-13" rx="15" ry="12" transform="rotate(300)"/>
+        </g>
+        <g fill="url(#petal2)">
+          <ellipse cx="0" cy="-7" rx="11" ry="8.5" transform="rotate(30)"/><ellipse cx="0" cy="-7" rx="11" ry="8.5" transform="rotate(102)"/><ellipse cx="0" cy="-7" rx="11" ry="8.5" transform="rotate(174)"/>
+          <ellipse cx="0" cy="-7" rx="11" ry="8.5" transform="rotate(246)"/><ellipse cx="0" cy="-7" rx="11" ry="8.5" transform="rotate(318)"/>
+        </g>
+        <circle r="7.5" fill="url(#heart)"/>
+      </g>
+      <path d="M-3 1a3.4 3.4 0 1 1 4 3a5.6 5.6 0 0 1-6.4-6" fill="none" stroke="#B57A6B" stroke-width=".9" stroke-linecap="round"/>
+      <ellipse cx="-5" cy="-14" rx="5" ry="2.2" fill="#fff" opacity=".45" transform="rotate(-20 -5 -14)"/>
+    </symbol>
+    <symbol id="bud" viewBox="-10 -14 20 28" overflow="visible">
+      <path d="M0 10C-7 6-7-4 0-12C7-4 7 6 0 10Z" fill="url(#petal)" stroke="#DDB6A8" stroke-width=".5"/>
+      <path d="M0 10C-5 9-8 4-7 0M0 10C5 9 8 4 7 0" fill="none" stroke="#9AA78E" stroke-width="1.2"/>
+    </symbol>
+    <symbol id="leaf" viewBox="0 -7 30 14" overflow="visible">
+      <path d="M0 0C8-8 20-8 30 0C20 8 8 8 0 0Z" fill="url(#leafG)" opacity=".9"/>
+      <path d="M2 0H27" stroke="#8E9B82" stroke-width=".5" opacity=".7"/>
+    </symbol>
+    <symbol id="euca" viewBox="0 0 120 40" overflow="visible">
+      <path d="M0 20C30 18 70 14 118 6" fill="none" stroke="#9AA78E" stroke-width="1"/>
+      <g fill="#B9C2AE" opacity=".85" stroke="#9AA78E" stroke-width=".4">
+        <circle cx="18" cy="14" r="5.5"/><circle cx="30" cy="25" r="6"/><circle cx="46" cy="11" r="6.5"/><circle cx="60" cy="22" r="6"/><circle cx="76" cy="7" r="6"/><circle cx="90" cy="17" r="5.5"/><circle cx="106" cy="4" r="4.8"/>
+      </g>
+    </symbol>
+    <symbol id="cluster" viewBox="0 0 260 120" overflow="visible">
+      <use href="#euca" x="130" y="40" width="120" height="40" transform="rotate(-8 190 60)"/>
+      <use href="#euca" x="10" y="40" width="120" height="40" transform="translate(140 0) scale(-1 1) rotate(-8 70 60)"/>
+      <use href="#leaf" x="70" y="62" width="30" height="14" transform="rotate(160 85 69)"/>
+      <use href="#leaf" x="160" y="62" width="30" height="14" transform="rotate(20 175 69)"/>
+      <use href="#leaf" x="96" y="78" width="30" height="14" transform="rotate(120 111 85)"/>
+      <use href="#leaf" x="136" y="78" width="30" height="14" transform="rotate(60 151 85)"/>
+      <use href="#bud" x="44" y="38" width="20" height="28" transform="rotate(-40 54 52)"/>
+      <use href="#bud" x="196" y="38" width="20" height="28" transform="rotate(40 206 52)"/>
+      <use href="#rose" x="82" y="34" width="44" height="44"/>
+      <use href="#rose" x="134" y="34" width="44" height="44"/>
+      <use href="#rose" x="102" y="22" width="56" height="56"/>
+      <g fill="#FFFDFB" stroke="#E2D3C6" stroke-width=".6">
+        <circle cx="74" cy="40" r="2.6"/><circle cx="68" cy="48" r="2"/><circle cx="186" cy="40" r="2.6"/><circle cx="192" cy="48" r="2"/>
+        <circle cx="118" cy="16" r="2.2"/><circle cx="142" cy="16" r="2.2"/><circle cx="130" cy="10" r="2.6"/><circle cx="36" cy="58" r="2"/><circle cx="224" cy="58" r="2"/>
+      </g>
+    </symbol>
+<filter id="emb" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1.2" dy="1.6" stdDeviation="1.1" flood-color="#A8916C" flood-opacity=".45"/>
+      <feDropShadow dx="-.8" dy="-.8" stdDeviation=".5" flood-color="#FFFFFF" flood-opacity="1"/>
+    </filter>
+    <radialGradient id="wax" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#F1DDAE"/><stop offset=".45" stop-color="#D6B577"/><stop offset="1" stop-color="#A9843F"/>
+    </radialGradient>
+    <symbol id="erose" viewBox="-20 -20 40 40" overflow="visible">
+      <g fill="var(--petal)" stroke="var(--vein)" stroke-width=".7">
+        <ellipse cx="0" cy="-9" rx="9.5" ry="7.5"/>
+        <ellipse cx="0" cy="-9" rx="9.5" ry="7.5" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-9" rx="9.5" ry="7.5" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-9" rx="9.5" ry="7.5" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-9" rx="9.5" ry="7.5" transform="rotate(288)"/>
+        <ellipse cx="0" cy="-5" rx="7" ry="5.5" transform="rotate(36)"/>
+        <ellipse cx="0" cy="-5" rx="7" ry="5.5" transform="rotate(156)"/>
+        <ellipse cx="0" cy="-5" rx="7" ry="5.5" transform="rotate(276)"/>
+        <circle r="4.6"/>
+      </g>
+      <path d="M-2.5 .5a2.6 2.6 0 1 1 3 2.4a4.4 4.4 0 0 1-4.6-4.8" fill="none" stroke="var(--vein)" stroke-width=".8"/>
+    </symbol>
+    <symbol id="eleaf" viewBox="0 -6 24 12" overflow="visible">
+      <path d="M0 0C6-6 16-6 24 0C16 6 6 6 0 0Z" fill="var(--petal)" stroke="var(--vein)" stroke-width=".7"/>
+      <path d="M1 0H21" stroke="var(--vein)" stroke-width=".6"/>
+    </symbol>
+    <symbol id="espray" viewBox="0 0 220 120" overflow="visible">
+      <g fill="none" stroke="var(--vein)" stroke-width="1">
+        <path d="M110 70C80 72 50 80 18 98"/><path d="M110 70C140 72 170 80 202 98"/>
+        <path d="M110 70C96 50 82 34 60 20"/><path d="M110 70C124 50 138 34 160 20"/>
+      </g>
+      <use href="#eleaf" x="20" y="84" width="24" height="12" transform="rotate(-20 32 90)"/>
+      <use href="#eleaf" x="176" y="84" width="24" height="12" transform="rotate(200 188 90)"/>
+      <use href="#eleaf" x="50" y="70" width="24" height="12" transform="rotate(25 62 76)"/>
+      <use href="#eleaf" x="146" y="70" width="24" height="12" transform="rotate(155 158 76)"/>
+      <use href="#eleaf" x="64" y="30" width="24" height="12" transform="rotate(-50 76 36)"/>
+      <use href="#eleaf" x="132" y="30" width="24" height="12" transform="rotate(230 144 36)"/>
+      <use href="#erose" x="58" y="50" width="40" height="40"/>
+      <use href="#erose" x="122" y="50" width="40" height="40"/>
+      <use href="#erose" x="84" y="40" width="52" height="52"/>
+      <use href="#erose" x="46" y="8" width="24" height="24"/>
+      <use href="#erose" x="150" y="8" width="24" height="24"/>
+      <g fill="var(--petal)" stroke="var(--vein)" stroke-width=".6">
+        <circle cx="30" cy="70" r="2.4"/><circle cx="38" cy="62" r="2"/><circle cx="190" cy="70" r="2.4"/><circle cx="182" cy="62" r="2"/>
+        <circle cx="96" cy="24" r="2.2"/><circle cx="124" cy="24" r="2.2"/><circle cx="110" cy="16" r="2.6"/>
+        <circle cx="10" cy="100" r="2"/><circle cx="210" cy="100" r="2"/>
+      </g>
+    </symbol>
+    <symbol id="envArt" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice">
+      <rect width="390" height="844" fill="#F7F1E6"/>
+      <rect x="16" y="16" width="358" height="812" fill="none" stroke="#C9A96E" stroke-width="1.4"/>
+      <rect x="23" y="23" width="344" height="798" fill="none" stroke="#C9A96E" stroke-opacity=".45"/>
+      <g fill="none" stroke="#C9A96E" stroke-width="1.2" stroke-opacity=".8">
+        <path d="M23 23L195 405L367 23"/>
+        <path d="M23 821L195 439L367 821"/>
+      </g>
+      <use href="#flour" x="105" y="70" width="180" height="35"/>
+      <use href="#flour" x="105" y="739" width="180" height="35" transform="rotate(180 195 756)"/>
+    </symbol>
+        <symbol id="flour" viewBox="0 0 260 50">
+      <g fill="none" stroke="#B8956A" stroke-width="1.1" stroke-linecap="round">
+        <path d="M130 25C112 25 104 12 86 13C70 14 67 31 79 33C89 35 90 23 82 23"/>
+        <path d="M79 33C58 40 36 32 8 25"/>
+        <path d="M130 25C148 25 156 12 174 13C190 14 193 31 181 33C171 35 170 23 178 23"/>
+        <path d="M181 33C202 40 224 32 252 25"/>
+        <path d="M130 9C122 16 122 34 130 41C138 34 138 16 130 9Z"/>
+        <path d="M100 30C108 36 118 36 124 31M160 30C152 36 142 36 136 31"/>
+      </g>
+      <g fill="#B8956A"><circle cx="130" cy="25" r="2"/><circle cx="4" cy="25" r="1.6"/><circle cx="256" cy="25" r="1.6"/><circle cx="104" cy="19" r="1.2"/><circle cx="156" cy="19" r="1.2"/></g>
+    </symbol>
+    <symbol id="orn" viewBox="0 0 150 16">
+      <path d="M0 8H58M92 8H150" stroke="#B8956A" stroke-width=".8"/>
+      <path d="M75 2C70 8 70 8 75 14C80 8 80 8 75 2Z" fill="none" stroke="#B8956A" stroke-width=".8"/>
+      <circle cx="64" cy="8" r="1.4" fill="#B8956A"/><circle cx="86" cy="8" r="1.4" fill="#B8956A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<button class="lang" id="lang" type="button" lang="ar">عربي</button>
+<div class="env" id="env">
+  <p class="dear" id="dear" hidden></p>
+  <div class="half top"><svg aria-hidden="true"><use href="#envArt" width="100%" height="100%"/></svg></div>
+  <div class="half bot"><svg aria-hidden="true"><use href="#envArt" width="100%" height="100%"/></svg></div>
+  <button class="seal" id="seal" type="button" aria-label="Open the invitation">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <path id="sealEdge" fill="url(#wax)"/>
+      <circle cx="66" cy="66" r="46" fill="none" stroke="#9A7537" stroke-opacity=".55" stroke-width="1.4"/>
+      <circle cx="66" cy="66" r="42" fill="none" stroke="#F6E6C2" stroke-opacity=".6" stroke-width=".8"/>
+      <text x="66" y="78" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="40" fill="#7A5A22" fill-opacity=".85">M&amp;M</text>
+    </svg>
+  </button>
+  <p class="tap" data-t="tap">Tap the seal to open</p>
+</div>
+
+<button class="music" id="music" type="button" aria-label="Pause music" aria-pressed="true" hidden>
+  <svg id="icPause" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  <svg id="icPlay" viewBox="0 0 14 14" aria-hidden="true" hidden><path d="M4 2l8 5l-8 5z" fill="currentColor"/></svg>
+</button>
+
+<main id="main" class="wash">
+  <div class="wrap">
+    <header class="hero">
+      <svg class="fl" viewBox="0 0 260 50" aria-hidden="true"><use href="#flour"/></svg>
+      <p class="fam" data-t="fam">Together with their families</p>
+      <h1 data-h="names">Mostafa<span>and</span>Mariam</h1>
+      <p class="inv" data-t="inv">request the pleasure of your company as they celebrate their engagement</p>
+      <svg class="fl b" viewBox="0 0 260 50" aria-hidden="true"><use href="#flour"/></svg>
+    </header>
+
+    <section>
+      <h2 class="script" data-t="save">Save the Date</h2>
+      <p class="hint" data-t="hint">Scratch each card to reveal the date</p>
+      <div class="cards">
+        <div class="cardw"><div class="dcard"><b>17</b><canvas aria-hidden="true"></canvas></div><small data-t="day">Day</small></div>
+        <div class="cardw"><div class="dcard"><b data-t="dec">December</b><canvas aria-hidden="true"></canvas></div><small data-t="month">Month</small></div>
+        <div class="cardw"><div class="dcard"><b>2026</b><canvas aria-hidden="true"></canvas></div><small data-t="year">Year</small></div>
+      </div>
+      <p class="whenline" data-t="whenline">Thursday evening at 7:00 PM</p>
+      <button class="reveal" id="revealAll" type="button" data-t="reveal">Reveal all at once</button>
+      <div class="venue">
+        <b data-t="venue">Katameya Gardens Club</b>
+        <p data-t="area">The Terrace, New Cairo</p>
+        <div class="pills"><a class="pill" data-t="map" href="https://www.google.com/maps/search/?api=1&amp;query=X8MH%2BPQ%20El%20Mokattam%2C%20Cairo">View on map</a></div>
+      </div>
+      <svg class="orn" aria-hidden="true"><use href="#orn"/></svg>
+    </section>
+
+    <section style="padding-top:44px">
+      <p class="muted" style="margin:0;font-style:italic" data-t="countLead">Counting the days until we celebrate</p>
+      <div class="count">
+        <div><b id="cd-d">0</b><span data-t="days">Days</span></div>
+        <div><b id="cd-h">0</b><span data-t="hours">Hours</span></div>
+        <div><b id="cd-m">0</b><span data-t="mins">Minutes</span></div>
+        <div><b id="cd-s">0</b><span data-t="secs">Seconds</span></div>
+      </div>
+    </section>
+
+    <section id="rsvpSec">
+      <h2 class="script" data-t="reply">Kindly Reply</h2>
+      <p class="muted" style="margin:0;font-style:italic" data-t="honour">We would be honoured by your presence</p>
+
+      <form class="card" id="f" novalidate>
+        <div class="field">
+          <label for="name" data-t="nameL">Your full name</label>
+          <input type="text" id="name" autocomplete="name">
+          <p class="err" id="nameErr"></p>
+        </div>
+        <div class="field">
+          <span class="lab" id="attLab" data-t="attL">Will you attend?</span>
+          <div class="choice" role="group" aria-labelledby="attLab">
+            <button type="button" data-att="yes" aria-pressed="false" data-t="yes">Joyfully accepts</button>
+            <button type="button" data-att="no" aria-pressed="false" data-t="no">Regretfully declines</button>
+          </div>
+          <p class="err" id="attErr"></p>
+        </div>
+        <div id="comingBlock" hidden>
+          <div class="field">
+            <span class="lab" id="cntLab" data-t="cntL">Number of guests, including you</span>
+            <div class="step" role="group" aria-labelledby="cntLab">
+              <button type="button" id="minus" aria-label="One fewer guest">−</button>
+              <output id="cnt" aria-live="polite">1</output>
+              <button type="button" id="plus" aria-label="One more guest">+</button>
+              <span class="opt" id="cntHint">Just you</span>
+            </div>
+          </div>
+          <div class="field" id="othersField" hidden>
+            <label for="others" data-h="othersL">Names of those joining you <span class="opt">(optional)</span></label>
+            <textarea id="others" placeholder="One name per line" data-p="othersP"></textarea>
+          </div>
+          <div class="field">
+            <label for="song" data-h="songL">A song you'd love to hear <span class="opt">(optional)</span></label>
+            <input type="text" id="song" placeholder="Song and artist" data-p="songP">
+          </div>
+        </div>
+        <div class="field" id="noteField" hidden>
+          <label for="note" data-h="noteL">A note for the couple <span class="opt">(optional)</span></label>
+          <textarea id="note" placeholder="Your wishes" data-p="noteP"></textarea>
+        </div>
+        <button class="send" type="submit" data-t="cont">Continue</button>
+        <p class="by" data-t="by">Please reply by 5 December 2026</p>
+      </form>
+
+      <div class="card done" id="done" hidden aria-live="polite">
+        <h2 class="script" style="font-size:44px" data-t="last">Your reply</h2>
+        <p data-h="lastP">Check your answers, then tap send.</p>
+        <pre id="preview"></pre>
+        <a class="send" id="go" href="#" data-t="go">Send my reply</a>
+        <button class="ghost" type="button" id="edit" data-t="edit">Change my answers</button>
+      </div>
+
+      <div class="card thanks" id="thanks" hidden aria-live="polite" tabindex="-1">
+        <svg class="tfl" viewBox="0 0 260 50" aria-hidden="true"><use href="#flour"/></svg>
+        <h2 class="script" id="thxTitle"></h2>
+        <p class="thxMsg" id="thxMsg"></p>
+        <svg class="orn" aria-hidden="true"><use href="#orn"/></svg>
+        <p class="thxNote" id="thxNote"></p>
+        <button class="ghost" type="button" id="back" data-t="back">Change my reply</button>
+      </div>
+    </section>
+
+    <footer>
+      <svg class="fl" viewBox="0 0 260 50" aria-hidden="true"><use href="#flour"/></svg>
+      <p data-t="love">With love,</p>
+      <div class="script" data-t="sign">Mostafa &amp; Mariam</div>
+    </footer>
+  </div>
+</main>
+
+<script>
+{
+  const FORM = "https://docs.google.com/forms/d/e/1FAIpQLSeQ1Om95EFeU3n0yFpT1lIx1-qrRSennSHrD2DDStospzv3IQ/formResponse";
+  const F = { name: "entry.40650276", att: "entry.836524864", count: "entry.1385831442", others: "entry.204619513", song: "entry.38315940", note: "entry.356129085" };
+  const EVENT = Date.UTC(2026, 11, 17, 17, 0, 0); // 17 Dec 2026, 7:00 PM Cairo
+  const MAX = 10;
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  try { history.scrollRestoration = "manual"; } catch (e) {}
+  window.scrollTo(0, 0);
+
+  // Language: English text lives in the HTML; Arabic here
+  const AR = {
+    tap: "اضغط على الختم لفتح الدعوة", fam: "بمباركة عائلتيهما",
+    names: "مصطفى<span>و</span>مريم", inv: "يتشرفان بدعوتكم لمشاركتهما فرحة الخطوبة",
+    save: "احفظوا الموعد", hint: "امسح كل بطاقة لتكشف التاريخ", dec: "ديسمبر",
+    day: "اليوم", month: "الشهر", year: "السنة", whenline: "مساء الخميس، الساعة السابعة",
+    reveal: "اكشف التاريخ كاملاً", venue: "نادي حدائق القطامية", area: "التراس، القاهرة الجديدة",
+    map: "عرض على الخريطة", cal: "أضف إلى التقويم", calApple: "تقويم آيفون", calGoogle: "تقويم جوجل", countLead: "نعدّ الأيام حتى نحتفل معاً",
+    days: "يوم", hours: "ساعة", mins: "دقيقة", secs: "ثانية",
+    reply: "تأكيد الحضور", honour: "يسعدنا تشريفكم", nameL: "الاسم بالكامل", attL: "هل ستحضر؟",
+    yes: "يسعدني الحضور", no: "أعتذر عن الحضور", cntL: "عدد الضيوف، بما فيهم أنت",
+    othersL: 'أسماء المرافقين <span class="opt">(اختياري)</span>', othersP: "اسم في كل سطر",
+    songL: 'أغنية تحب أن تسمعها <span class="opt">(اختياري)</span>', songP: "اسم الأغنية والمطرب",
+    noteL: 'رسالة للعروسين <span class="opt">(اختياري)</span>', noteP: "تهانيك",
+    cont: "متابعة", by: "يرجى الرد قبل ٥ ديسمبر ٢٠٢٦", last: "ردّك",
+    lastP: "راجع إجاباتك ثم اضغط إرسال.",
+    go: "إرسال الرد", edit: "تعديل إجاباتي", back: "تعديل ردي", love: "مع حبنا،", sign: "مصطفى و مريم"
+  };
+  const MSG = {
+    en: { dear: n => `Dear ${n}`, just: "Just you", more: n => `You and ${n} more`, nameErr: "Enter your name so we know who's replying.", attErr: "Choose whether you'll attend.",
+          pName: "Name", pAtt: "Attending", pYes: "Yes", pNo: "No", pCount: "Guests, including you", pWith: "Coming with you", pSong: "Song request", pNote: "Message", open: "Open the invitation",
+          thxYes: n => `Thank you, ${n}`, msgYes: "We can't wait to see you on 17\u00A0December.", thxNo: n => `Thank you, ${n}`, msgNo: "Thank you for letting us know. You'll be missed.",
+          note: "Your reply has been sent to us." },
+    ar: { dear: n => `إلى ${n}`, just: "أنت فقط", more: n => `أنت + ${n}`, nameErr: "اكتب اسمك لنعرف من يرد.", attErr: "اختر إن كنت ستحضر.",
+          pName: "الاسم", pAtt: "الحضور", pYes: "نعم", pNo: "لا", pCount: "عدد الضيوف", pWith: "المرافقون", pSong: "أغنية", pNote: "رسالة", open: "افتح الدعوة",
+          thxYes: n => `شكراً يا ${n}`, msgYes: "ننتظر رؤيتك يوم ١٧\u00A0ديسمبر.", thxNo: n => `شكراً يا ${n}`, msgNo: "شكراً لإخبارنا، سنفتقد وجودك.",
+          note: "تم إرسال ردك إلينا." }
+  };
+  const EN = {};
+  document.querySelectorAll("[data-t]").forEach(e => EN[e.dataset.t] = e.textContent);
+  document.querySelectorAll("[data-h]").forEach(e => EN[e.dataset.h] = e.innerHTML);
+  document.querySelectorAll("[data-p]").forEach(e => EN[e.dataset.p] = e.placeholder);
+  let lang = "en";
+  const M = k => MSG[lang][k];
+  const applyLang = l => {
+    lang = l;
+    const D = l === "ar" ? AR : EN;
+    document.documentElement.lang = l; document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+    document.querySelectorAll("[data-t]").forEach(e => { e.textContent = D[e.dataset.t]; });
+    document.querySelectorAll("[data-h]").forEach(e => { e.innerHTML = D[e.dataset.h]; });
+    document.querySelectorAll("[data-p]").forEach(e => { e.placeholder = D[e.dataset.p]; });
+    const lb = $("lang"); lb.textContent = l === "ar" ? "English" : "عربي"; lb.lang = l === "ar" ? "en" : "ar";
+    lb.setAttribute("aria-label", l === "ar" ? "Switch to English" : "التبديل إلى العربية");
+    $("seal").setAttribute("aria-label", M("open"));
+    if (guest) $("dear").textContent = M("dear")(guest);
+    try { refreshCount(); } catch (e) {}
+    try { localStorage.setItem("mm-lang", l); } catch (e) {}
+  };
+
+  // Personal link: …#Nour-Hassan greets the guest and fills their name
+  let guest = "";
+  try { guest = decodeURIComponent(location.hash.slice(1)).replace(/[-_+]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 40); } catch (e) { guest = ""; }
+  if (guest) { $("dear").hidden = false; $("name").value = guest; }
+
+  let saved = null;
+  try { saved = localStorage.getItem("mm-lang"); } catch (e) {}
+  applyLang(saved || ((navigator.language || "").startsWith("ar") ? "ar" : "en"));
+  $("lang").addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
+
+
+  // Original piano waltz, played in the browser (no audio file)
+  const music = (() => {
+    let ctx = null, out = null, timer = null, next = 0, beat = 0, playing = false;
+    const hz = m => 440 * 2 ** ((m - 69) / 12);
+    const BPM = 84, B = 60 / BPM;
+    const CH = { F: [41, [57, 60, 65]], Am: [45, [57, 60, 64]], Bb: [46, [58, 62, 65]], Dm: [50, [57, 62, 65]], Gm: [43, [58, 62, 67]], C: [48, [55, 60, 64]], FC: [48, [57, 60, 65]] };
+    const BARS = [
+      ["F", [[72, 2], [69, 1]]], ["Am", [[76, 2], [72, 1]]], ["Bb", [[74, 1], [72, 1], [70, 1]]], ["F", [[69, 3]]],
+      ["Dm", [[74, 2], [77, 1]]], ["Bb", [[76, 1], [74, 1], [70, 1]]], ["Gm", [[72, 1], [70, 1], [67, 1]]], ["C", [[72, 3]]],
+      ["F", [[77, 2], [76, 1]]], ["Am", [[76, 2], [72, 1]]], ["Bb", [[74, 1], [77, 1], [81, 1]]], ["Gm", [[79, 2], [74, 1]]],
+      ["FC", [[77, 1], [76, 1], [74, 1]]], ["C", [[72, 1], [74, 1], [76, 1]]], ["F", [[77, 3]]], ["F", []]
+    ];
+    // Flatten to events: [beatOffset, midi, beats, velocity]
+    const EV = []; let pos = 0;
+    BARS.forEach(([ch, mel], bi) => {
+      const [bass, tri] = CH[ch];
+      EV.push([pos, bass, 3, .55]); EV.push([pos, bass + 12, 3, .25]);
+      tri.forEach(n => { EV.push([pos + 1, n, .9, .22]); EV.push([pos + 2, n, .9, .18]); });
+      let o = 0; mel.forEach(([n, d]) => { EV.push([pos + o, n, d, .62]); o += d; });
+      if (bi === 15) tri.forEach(n => EV.push([pos, n + 12, 3, .3]));
+      pos += 3;
+    });
+    const LOOP = pos;
+    function init() {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      out = ctx.createGain(); out.gain.value = 0;
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3;
+      const rev = ctx.createConvolver(), len = ctx.sampleRate * 3, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let k = 0; k < len; k++) d[k] = (Math.random() * 2 - 1) * (1 - k / len) ** 3; }
+      rev.buffer = ir;
+      const wet = ctx.createGain(); wet.gain.value = .32;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 55; hp.connect(comp);
+      out.connect(hp); comp.connect(ctx.destination); out.connect(rev); rev.connect(wet); wet.connect(hp);
+    }
+    function piano(m, t, vel, dur) {
+      const f = hz(m), lp = ctx.createBiquadFilter(); lp.type = "lowpass";
+      lp.frequency.setValueAtTime(Math.min(9000, f * 9), t); lp.frequency.setTargetAtTime(Math.min(4000, f * 3), t, .25); lp.Q.value = .3;
+      const g = ctx.createGain(); g.connect(lp); lp.connect(out);
+      const decay = Math.max(.6, 2.6 - (m - 40) * .025), end = t + dur + 1.2;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vel, t + .006);
+      g.gain.setTargetAtTime(vel * .35, t + .006, decay * .25);
+      g.gain.setTargetAtTime(0, t + dur, .35);
+      [[1, 1, 0], [1, .6, 4], [2, .38, 0], [3, .16, 0], [4, .08, 0], [5, .04, 0]].forEach(([k, a, det]) => {
+        const o = ctx.createOscillator(), og = ctx.createGain();
+        o.type = k === 1 ? "triangle" : "sine"; o.frequency.value = f * k * (1 + k * k * .0004); o.detune.value = det;
+        og.gain.setValueAtTime(a * .5, t); og.gain.setTargetAtTime(0, t, decay / (k * .9));
+        o.connect(og); og.connect(g); o.start(t); o.stop(end);
+      });
+    }
+    function schedule() {
+      while (next < ctx.currentTime + .3) {
+        const lb = beat % LOOP;
+        EV.forEach(([p, m, d, v]) => {
+          if (p >= lb && p < lb + 1) {
+            const h = (Math.random() - .5) * .016, vv = v * (.9 + Math.random() * .2);
+            piano(m, next + (p - lb) * B + Math.max(0, h), vv * .55, d * B * .96);
+          }
+        });
+        next += B; beat++;
+      }
+    }
+    return {
+      get playing() { return playing; },
+      play() {
+        try {
+          if (!ctx) init();
+          ctx.resume(); playing = true;
+          out.gain.cancelScheduledValues(ctx.currentTime); out.gain.setTargetAtTime(.5, ctx.currentTime, .9);
+          next = Math.max(next, ctx.currentTime + .08);
+          if (!timer) timer = setInterval(schedule, 90);
+        } catch (e) { playing = false; }
+        return playing;
+      },
+      pause() {
+        if (!ctx) return; playing = false;
+        out.gain.setTargetAtTime(0, ctx.currentTime, .3);
+        setTimeout(() => { if (!playing) { clearInterval(timer); timer = null; ctx.suspend(); } }, 1000);
+      }
+    };
+  })();
+  const mBtn = $("music");
+  const showMusic = on => {
+    mBtn.setAttribute("aria-pressed", String(on));
+    mBtn.setAttribute("aria-label", on ? "Pause music" : "Play music");
+    $("icPause").hidden = !on; $("icPlay").hidden = on;
+  };
+  mBtn.addEventListener("click", () => { if (music.playing) { music.pause(); showMusic(false); } else showMusic(music.play()); });
+
+  // Wax seal wavy edge
+  {
+    let d = "";
+    for (let i = 0; i <= 72; i++) {
+      const a = i / 72 * Math.PI * 2;
+      const r = 58 + Math.sin(i * 1.7) * 2.2 + Math.cos(i * 3.1) * 1.6;
+      d += (i ? "L" : "M") + (66 + r * Math.cos(a)).toFixed(1) + " " + (66 + r * Math.sin(a)).toFixed(1);
+    }
+    $("sealEdge").setAttribute("d", d + "Z");
+  }
+
+
+  const env = $("env"), main = $("main");
+  $("seal").addEventListener("click", () => {
+    window.scrollTo(0, 0);
+    mBtn.hidden = false; showMusic(music.play());
+    env.classList.add("open"); $("lang").style.zIndex = 20;
+    main.classList.add("on");
+    document.body.classList.remove("locked");
+    setTimeout(() => { env.classList.add("gone"); setupScratch(); if (scrollY > 0 && !$("main").dataset.moved) window.scrollTo(0, 0); }, reduce ? 50 : 1200);
+  });
+
+  // Scratch cards
+  let scratchReady = false;
+  const canvases = [...document.querySelectorAll(".dcard canvas")];
+  const clearCard = c => c.classList.add("clear");
+  function paint(c) {
+    const r = c.getBoundingClientRect(), dpr = devicePixelRatio || 1;
+    c.width = r.width * dpr; c.height = r.height * dpr;
+    const x = c.getContext("2d");
+    const g = x.createLinearGradient(0, 0, c.width, c.height);
+    g.addColorStop(0, "#E9D6A8"); g.addColorStop(.45, "#C9A96E"); g.addColorStop(.6, "#F3E5C1"); g.addColorStop(1, "#B99556");
+    x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
+    x.fillStyle = "rgba(255,255,255,.7)";
+    for (let i = 0; i < 26; i++) { x.beginPath(); x.arc(Math.random() * c.width, Math.random() * c.height, (Math.random() * 1.4 + .4) * dpr, 0, 7); x.fill(); }
+    x.globalCompositeOperation = "destination-out";
+    x.lineCap = "round"; x.lineJoin = "round"; x.lineWidth = 26 * dpr;
+    return x;
+  }
+  function setupScratch() {
+    if (scratchReady) return; scratchReady = true;
+    canvases.forEach(c => {
+      const x = paint(c); let down = false, last = null, moves = 0;
+      const pt = e => { const r = c.getBoundingClientRect(), dpr = c.width / r.width; return [(e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr]; };
+      const check = () => {
+        const d = x.getImageData(0, 0, c.width, c.height).data; let clear = 0, n = 0;
+        for (let i = 3; i < d.length; i += 64) { n++; if (d[i] === 0) clear++; }
+        if (clear / n > .45) clearCard(c);
+      };
+      c.addEventListener("pointerdown", e => { down = true; last = pt(e); c.setPointerCapture(e.pointerId); });
+      c.addEventListener("pointermove", e => {
+        if (!down) return; const p = pt(e);
+        x.beginPath(); x.moveTo(last[0], last[1]); x.lineTo(p[0], p[1]); x.stroke(); last = p;
+        if (++moves % 8 === 0) check();
+      });
+      const up = () => { if (down) { down = false; check(); } };
+      c.addEventListener("pointerup", up); c.addEventListener("pointercancel", up);
+    });
+  }
+  $("revealAll").addEventListener("click", () => { canvases.forEach(clearCard); $("revealAll").hidden = true; });
+
+  const pad = n => String(n).padStart(2, "0");
+  const tick = () => {
+    let s = Math.max(0, Math.floor((EVENT - Date.now()) / 1000));
+    $("cd-d").textContent = Math.floor(s / 86400); s %= 86400;
+    $("cd-h").textContent = pad(Math.floor(s / 3600)); s %= 3600;
+    $("cd-m").textContent = pad(Math.floor(s / 60));
+    $("cd-s").textContent = pad(s % 60);
+  };
+  tick(); setInterval(tick, 1000);
+
+  // RSVP form
+  let att = null, count = 1, message = "";
+  const attBtns = document.querySelectorAll("[data-att]");
+  attBtns.forEach(b => b.addEventListener("click", () => {
+    att = b.dataset.att;
+    attBtns.forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+    $("comingBlock").hidden = att !== "yes";
+    $("noteField").hidden = false;
+    $("attErr").textContent = "";
+  }));
+  function refreshCount() { $("cntHint").textContent = count === 1 ? M("just") : M("more")(count - 1); }
+  const setCount = n => {
+    count = Math.max(1, Math.min(MAX, n));
+    $("cnt").textContent = count;
+    $("minus").disabled = count === 1; $("plus").disabled = count === MAX;
+    refreshCount();
+    $("othersField").hidden = count === 1;
+  };
+  $("minus").addEventListener("click", () => setCount(count - 1));
+  $("plus").addEventListener("click", () => setCount(count + 1));
+  setCount(1);
+
+  $("f").addEventListener("submit", e => {
+    e.preventDefault();
+    const name = $("name").value.trim();
+    let ok = true;
+    $("nameErr").textContent = name ? "" : M("nameErr");
+    if (!name) ok = false;
+    if (!att) { $("attErr").textContent = M("attErr"); ok = false; }
+    if (!ok) { (name ? attBtns[0] : $("name")).focus(); return; }
+
+    const q = new URLSearchParams({ usp: "pp_url" });
+    q.set(F.name, name);
+    q.set(F.att, att === "yes" ? "Joyfully accepts" : "Regretfully declines");
+    const lines = [`${M("pName")}: ${name}`];
+    if (att === "yes") {
+      q.set(F.count, String(count));
+      lines.push(`${M("pAtt")}: ${M("pYes")}`, `${M("pCount")}: ${count}`);
+      const others = $("others").value.split(/\n+/).map(s => s.trim()).filter(Boolean);
+      if (count > 1 && others.length) { q.set(F.others, others.join(", ")); lines.push(`${M("pWith")}: ${others.join(", ")}`); }
+      const song = $("song").value.trim();
+      if (song) { q.set(F.song, song); lines.push(`${M("pSong")}: ${song}`); }
+    } else lines.push(`${M("pAtt")}: ${M("pNo")}`);
+    const note = $("note").value.trim();
+    if (note) { q.set(F.note, note); lines.push(`${M("pNote")}: ${note}`); }
+    message = lines.join("\n");
+
+    $("preview").textContent = message;
+    q.set("submit", "Submit");
+    $("go").href = FORM + "?" + q.toString();
+    $("f").hidden = true; $("done").hidden = false;
+    $("rsvpSec").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  });
+  let thanksName = "";
+  const showThanks = () => {
+    const first = $("name").value.trim().split(/\s+/)[0] || "";
+    const yes = att === "yes";
+    $("thxTitle").textContent = first ? M(yes ? "thxYes" : "thxNo")(first) : (lang === "ar" ? "شكراً لك" : "Thank you");
+    $("thxMsg").textContent = M(yes ? "msgYes" : "msgNo");
+    $("thxNote").textContent = M("note");
+    $("done").hidden = true; $("thanks").hidden = false;
+    $("rsvpSec").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    $("thanks").focus({ preventScroll: true });
+  };
+  // Send silently to the Google Form; open it only if the quiet send fails
+  let sending = false;
+  $("go").addEventListener("click", async e => {
+    e.preventDefault();
+    if (sending) return; sending = true;
+    const url = $("go").href, body = url.split("?")[1] || "";
+    try {
+      await fetch(FORM, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body });
+      showThanks();
+    } catch (err) {
+      location.href = url;
+    } finally { sending = false; }
+  });
+  $("back").addEventListener("click", () => { $("thanks").hidden = true; $("done").hidden = false; });
+  $("edit").addEventListener("click", () => { $("done").hidden = true; $("f").hidden = false; $("name").focus(); });
+}
+</script>
+</body>
+</html>
